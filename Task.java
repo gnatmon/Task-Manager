@@ -16,8 +16,8 @@ public class Task{
     private boolean isComplete;
 
 public Task (String title, String description){
-    this.title = "";
-    this.description = "";
+    this.title = title;
+    this.description = description;
     this.isComplete = false;
 }
 
@@ -42,6 +42,20 @@ public void setIsComplete(boolean isComplete){
 public void toggleComplete(){
     this.isComplete = !this.isComplete;
 }
+
+//methods for saving/loading files:
+
+public String toFileString() {
+    return isComplete + "|" + title + "|" + description;
+}
+public Task(String fileLine) { 
+    String[] parts = fileLine.split("\\|", 3);
+    this.isComplete = Boolean.parseBoolean(parts[0]);
+    this.title = parts[1];
+    this.description = parts[2];
+}
+
+
 @Override
 public String toString() {
     return "[" + (isComplete ? "✓" : " ") + "] " + title;
